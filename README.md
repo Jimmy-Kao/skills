@@ -66,36 +66,7 @@
 | 5 | 存回團隊共用位置，供下一輪使用 |
 
 ## 建議流程圖
-```mermaid
-flowchart TD
-    A[指令<br/>「根據需求文檔產出測試用例，若有 UI 一併參考，並同時產出可跌代的 skill」]
-    B[提供需求文檔]
-    C{是否有 UI?}
-    D[一起提供 UI]
-    E[只提供需求文檔]
-    F[AI 直接產出測試用例]
-    G[AI 產出可跌代的 skill 更新]
-    H[固定規則放 skill]
-    I[新學到的規則放 app profile]
-    J[每輪補充內容放 skill delta]
-    K[存回團隊共用位置<br/>如 Git 共用路徑或團隊雲端資料夾]
-    L[下一輪需求直接沿用最新版本]
 
-    A --> B
-    B --> C
-    C -- 有 --> D
-    C -- 沒有 --> E
-    D --> F
-    E --> F
-    F --> G
-    G --> H
-    G --> I
-    G --> J
-    H --> K
-    I --> K
-    J --> K
-    K --> L
-```
 ```mermaid
 flowchart TD
 	A[组员第一句指令<br/>请根据这份需求文档产出测试用例<br/>若有 UI 也一并参考<br/>并同时产出可跌代的 skill]
