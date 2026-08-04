@@ -69,27 +69,27 @@
 
 ```mermaid
 flowchart TD
-	A["组员第一句指令<br/>请根据这份需求文档产出测试用例<br/>若有 UI 也一并参考<br/>并同时产出可跌代的 skill"]
-	B["提供需求文档"]
+	A["指令<br/>根據這份需求產出測試用例<br/>若有 UI 也一併參考<br/>並同時產出可跌代的 skill"]
+	B["提供需求文件"]
 	C{"是否有 UI?"}
 	D["一起提供 UI"]
-	E["只提供需求文档"]
-	F["AI 产出测试用例<br/>TEST_CASES_KLINE_180.md<br/>Google Sheets-ready 中文格式"]
-	G["AI 产出可跌代的 skill 更新"]
-	H["固定规则放 SKILL_NEW.md"]
-	I["新学到的规则放 APP_PROFILE.md"]
-	J["每轮补充内容放 SKILL_DELTA.md"]
-	K["第二句追问<br/>把 SKILL_DELTA.md 里已经稳定的规则<br/>正式合并回 SKILL_NEW.md"]
-	L["AI 合并稳定规则回主 skill<br/>更新 SKILL_NEW.md"]
-	M["第三句追问<br/>把 TEST_CASES_KLINE_180.md<br/>整理成 Excel 最终交付格式"]
-	N["AI 产出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>栏位: 模块、標題、Precondition、步驟、驗證、備註"]
-	O["存回团队共用位置<br/>如 Git 共用路径或团队云端资料夹"]
-	P["下一轮需求直接沿用最新版本"]
+	E["只提供需求文件"]
+	F["AI 產出測試用例<br/>TEST_CASES_KLINE_180.md<br/>Google Sheets-ready 中文格式"]
+	G["AI 產出可跌代的 skill 更新"]
+	H["固定規則放 SKILL_NEW.md"]
+	I["新學到的規則放 APP_PROFILE.md"]
+	J["每輪補充內容放 SKILL_DELTA.md"]
+	K["第二句追問<br/>把 SKILL_DELTA.md 裡已經穩定的規則<br/>正式合併回 SKILL_NEW.md"]
+	L["AI 合併穩定規則回主 skill<br/>更新 SKILL_NEW.md"]
+	M["第三句追問<br/>把 TEST_CASES_KLINE_180.md<br/>整理成 Excel 最終交付格式"]
+	N["AI 產出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>欄位: 模組、標題、Precondition、步驟、驗證、備註"]
+	O["存回團隊共用位置<br/>如 Git 共用路徑或團隊雲端資料夾"]
+	P["下一輪需求直接沿用最新版本"]
 
 	A --> B
 	B --> C
 	C -- 有 --> D
-	C -- 没有 --> E
+	C -- 沒有 --> E
 	D --> F
 	E --> F
 	F --> G
