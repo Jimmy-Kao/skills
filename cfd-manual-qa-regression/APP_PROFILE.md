@@ -6,34 +6,49 @@
 - Serve as the app-specific memory that gets updated each round.
 
 ## Current App Facts
-- Product name:
-- User roles:
-- Main modules:
-- Main screens:
-- Primary workflows:
-- Validation rules:
-- Calculation rules:
-- Permission rules:
-- Boundary rules:
-- Known defects:
-- Environment constraints:
-- Glossary:
+- Product name: 一通金业
+- User roles: 已注册用户、KYC成功用户、真实/模拟交易用户
+- Main modules: 行情K线、拖动止盈止损、拖动挂单、K线改单、指标参数、画线、K线表、设置、新手指导、一键开仓、埋点统计
+- Main screens: K线主页面、修改订单弹窗、止盈止损确认弹窗、挂单切换列表、持仓切换列表、指标参数、画线面板、K线表、设置面板、新手教学蒙层
+- Primary workflows: 当前持仓线展示与切换、拖动设置止盈止损、点击K线+新增挂单、拖动挂单改价、撤销挂单、一键开仓、指标切换与参数设置
+- Validation rules: 止盈止损拖动仅支持按价格；挂单价格超范围提示红字；产品休市不可新建挂单或修改止盈止损；超时提示“网络超时，请重试”；断网提示“网络异常”
+- Calculation rules: 预计盈利=(平仓价-开仓价)*合约单位*手数；外汇间接货币与交叉货币按需求公式换算；挂单类型根据用户输入价相对 Bid/Ask 自动判断为限价或停损
+- Permission rules: 新手蒙层仅首次进入K线页展示一次；KYC成功后默认进入K线页面并引导交易教学
+- Boundary rules: 买单止盈必须大于当前卖出价、止损必须小于当前卖出价；卖单止盈必须小于当前买入价、止损必须大于当前买入价；挂单价格范围按后台边界值和1998区间计算
+- Known defects: 暂无已确认缺陷，需在执行后补充
+- Environment constraints: 行情拖动过程中需保持实时刷新；横屏需支持拖动止盈止损；切换分时或日期后范围内已设置内容仍需展示
+- Glossary: 当前持仓、当前挂单、止盈线、止损线、K线改单、一键开仓、十字光标、挂单可视、持仓可视
 
 ## Confirmed Behaviors
-- Add only facts that are already confirmed by the requirement or UI.
-- Keep default states, labels, visibility, and transition behavior here.
-- Keep app-specific edge cases here.
+- 当前挂单、当前持仓、现价线默认开启。
+- 用户在K线页有至少一笔持仓且“当前持仓”开启时，可点击持仓线进入编辑态并拖动设置止盈止损。
+- 无持仓时，不显示任何持仓线、止盈线、止损线；订单平仓后，对应开仓线及止盈止损线立即消失。
+- 持仓线左侧标签格式为“买/卖 + 手数 + 浮动盈亏”，右侧显示入场价格。
+- 多笔持仓时默认展示最新一笔；底部列表可切换选中的持仓；一次只能操作一笔订单。
+- 拖动止盈止损松手后必须弹出确认信息，展示目标价和预计盈利/亏损。
+- 删除止盈或止损后，仅删除对应数据，不影响另一侧；删除需二次确认；失败时线条恢复实线并提示原因。
+- 点击K线图任意位置出现十字光标与对应价格，点击“+”可弹出新建挂单弹窗。
+- 新建挂单默认买入方向；价格默认为用户点击价格；手数默认为系统设定值；可用资金不足不影响挂单，仅影响开仓。
+- 有效挂单成功后，K线图立即显示对应水平挂单线；成交后转为当前持仓线；撤销或过期后立即消失。
+- 同品种多笔有效挂单时默认展示最新提交的一笔，底部挂单列表展示全部有效挂单，切换时自动退出上一笔编辑态。
+- 挂单与持仓共存时，图表同时显示最新一笔持仓线与最新一笔挂单线，底部通过 Tab 切换“当前持仓”和“当前挂单”列表。
+- 一键开仓默认开启；设置中支持调整一键开仓、订单显示、K线表显示、样式设置。
+- 新手指导与首次蒙层引导存在，且按步骤关闭后后续步骤不再重复展示。
+- 指标支持主图1个、副图2个；点击底部指标可切换主图/副图指标；参数说明文案来自外部文档。
+- 埋点编码227-260覆盖拖动止盈止损、挂单、设置开关、指标参数等操作。
 
 ## To Confirm
-- Unknown states or behaviors that still need confirmation.
-- Ambiguous rules from the latest requirement.
-- UI details not yet verified.
+- K线改单开关默认状态在需求中未明确列出，仅从UI截图推测为开启。
+- 止盈止损线默认开关状态未在文本中明确，需结合最终UI确认。
+- 新手指导详细每一页文案和暗黑/明亮主题全部控件状态仍需以最终设计稿复核。
+- 指标参数范围、重置规则与各指标说明内容需结合最终指标说明文档确认。
+- 挂单拖动改价章节在需求文本中“三、拖动改价”部分存在空白编号，需开发或产品补充完整交互细节。
 
 ## Iteration Notes
-- Date:
-- Requirement source:
-- New behavior learned:
-- New risks learned:
-- Test cases added or changed:
-- Open questions:
-- Skill delta to merge next:
+- Date: 2026-08-04
+- Requirement source: 一通金业 180版本需求（K线一期）
+- New behavior learned: K线页已升级为交易工作台，覆盖持仓/挂单/止盈止损/一键开仓/指标/画线/新手教学一体化操作
+- New risks learned: 多笔持仓/挂单切换、拖动范围边界、休市阻断、实时行情下拖动稳定性、埋点完整性
+- Test cases added or changed: 新增K线一期完整测试用例，覆盖拖动止盈止损、拖动挂单、K线改单、设置、指标、埋点与新手教学
+- Open questions: K线改单默认开关、止盈止损线默认开关、拖动改价空白编号细节、指标说明最终文本
+- Skill delta to merge next: 见 SKILL_DELTA.md

@@ -100,6 +100,9 @@ The Skill Delta must include:
 - Any assumptions that were required
 - Any wording that should be promoted into the skill itself
 
+Promotion rule:
+- Only merge wording into this skill when it is cross-feature, reusable, and not tied to one specific screen or product variant.
+
 ## App Profile Inputs
 ## App 資訊輸入
 Before generating test cases, collect and reuse these app facts when available:
@@ -128,6 +131,8 @@ The Skill Delta must capture:
 - Gaps that still need confirmation
 - Exact wording or labels that should be reused later
 - Notes for the next iteration so the skill becomes more accurate
+
+When a round repeatedly reveals reusable test-design rules, promote them here and keep app-specific facts in `APP_PROFILE.md`.
 
 ## Language Rule
 - All generated test cases must be written in Chinese.
@@ -241,12 +246,18 @@ Always map scope to these risk buckets before case design:
    - Session transition behavior (market open/close)
    - **UI display/format verification for every display rule** (label text, format, position, color)
    - **Static exhibition checks must have independent assertions**, not just be implicitly covered by interaction tests
+   - **Every default on/off, default visible/hidden, and first-load state must produce its own dedicated test case**
+   - **Every state transition rule must verify both the trigger and the post-transition result** (for example disappear, switch, restore, or remain visible)
 - Negative cases:
    - Invalid input and boundary values
    - Stale/late quote handling
    - Insufficient margin and stop-out edge conditions
    - Permission denial and role restrictions
    - Upstream dependency timeout/failure behavior
+   - **For any drag-edit workflow with a confirmation dialog, generate validation for four checkpoints: before drag, after drag, after confirm, and after failure/cancel**
+
+- Non-functional coverage:
+   - If the requirement explicitly includes telemetry, tracking, or analytics events, generate dedicated validation cases for those events.
 
 ## Test Case Output Format Standard
 ## 测试用例输出格式标准
