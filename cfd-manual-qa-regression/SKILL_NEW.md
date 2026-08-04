@@ -17,6 +17,7 @@ disable-model-invocation: false
 - Coverage tracking against requirements and risk areas
 - A clear sign-off recommendation with blockers and residual risks
 - A reusable iterative skill update for the next run
+- Google Sheets-ready test cases written in Chinese
 
 **中文翻译：**
 - 针对版本范围的聚焦性手动测试计划
@@ -48,6 +49,7 @@ disable-model-invocation: false
 - Environments, build details, and test data availability
 - Timeline and execution capacity
 - Severity definitions and release gate criteria
+- Test case output language: Chinese
 
 **中文翻译：**
 - 发布范围和变更的组件
@@ -126,6 +128,11 @@ The Skill Delta must capture:
 - Gaps that still need confirmation
 - Exact wording or labels that should be reused later
 - Notes for the next iteration so the skill becomes more accurate
+
+## Language Rule
+- All generated test cases must be written in Chinese.
+- Use Chinese for Module, Subjective, Steps, Verify, Result, and Priority descriptions when producing test cases.
+- If the user does not specify a language, default to Chinese.
 
 **中文翻译：**
 - **必需：**
