@@ -1,7 +1,67 @@
-# 一通金业 180 版本需求（K线一期）测试用例 - Excel格式
+# 一通金業 180 版本需求（K線一期）測試用例 - Excel格式
 
-## 输出格式
-- 欄位順序：模块 | 標題 | Precondition | 步驟 | 驗證 | 備註
+## 建議操作流程 Prompt
+
+### Prompt 1：首輪生成
+- 請根據這份需求文件產出測試用例，若有 UI 也一併參考，並同時產出可跌代的 skill。
+
+### Prompt 2：穩定規則正式回寫主 Skill
+- 我直接把 SKILL_DELTA.md 裡已經穩定的規則，正式合併回 SKILL_NEW.md。
+
+### Prompt 3：交付版 Excel 用例整理
+- 我把 TEST_CASES_KLINE_180.md 再整理成你們 Excel 最終交付格式 [模組 | 標題 | Precondition | 步驟 | 驗證 | 備註]。
+
+## Mermaid 流程圖
+
+```mermaid
+flowchart TD
+	A["組員第一句指令<br/>請根據這份需求文件產出測試用例<br/>若有 UI 也一併參考<br/>並同時產出可跌代的 skill"]
+	B["提供需求文件"]
+	C{"是否有 UI?"}
+	D["一起提供 UI"]
+	E["只提供需求文件"]
+	F["AI 產出測試用例<br/>TEST_CASES_KLINE_180.md<br/>Google Sheets-ready 中文格式"]
+	G["AI 產出可跌代的 skill 更新"]
+	H["固定規則放 SKILL_NEW.md"]
+	I["新學到的規則放 APP_PROFILE.md"]
+	J["每輪補充內容放 SKILL_DELTA.md"]
+	K["第二句追問<br/>把 SKILL_DELTA.md 裡已經穩定的規則<br/>正式合併回 SKILL_NEW.md"]
+	L["AI 合併穩定規則回主 skill<br/>更新 SKILL_NEW.md"]
+	M["第三句追問<br/>把 TEST_CASES_KLINE_180.md<br/>整理成 Excel 最終交付格式"]
+	N["AI 產出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>欄位: 模組、標題、Precondition、步驟、驗證、備註"]
+	O["存回團隊共用位置<br/>如 Git 共用路徑或團隊雲端資料夾"]
+	P["下一輪需求直接沿用最新版本"]
+
+	A --> B
+	B --> C
+	C -- 有 --> D
+	C -- 沒有 --> E
+	D --> F
+	E --> F
+	F --> G
+	G --> H
+	G --> I
+	G --> J
+	H --> K
+	I --> O
+	J --> K
+	K --> L
+	F --> M
+	M --> N
+	L --> O
+	N --> O
+	O --> P
+```
+
+## 流程說明
+- 第一輪輸入是需求文件，可選再加 UI。
+- 第一輪固定產出三類內容：測試用例、APP_PROFILE、SKILL_DELTA。
+- 如果這一輪的 delta 已經出現穩定且可復用的規則，再用第二句 prompt 觸發主 skill 升級，正式回寫到 SKILL_NEW。
+- 如果要給測試組或業務方交付 Excel 版，再用第三句 prompt 把 Google Sheets 版測試用例轉成最終 Excel 欄位格式。
+- 團隊共享時，固定規則、App 記憶、每輪 delta、交付用例都要一起存回共用位置，下一輪直接復用。
+
+## 輸出格式
+- 欄位順序：模組 | 標題 | Precondition | 步驟 | 驗證 | 備註
 - 備註欄統一帶出優先級與初始執行結果。
 
 | 模块 | 標題 | Precondition | 步驟 | 驗證 | 備註 |
