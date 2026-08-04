@@ -92,10 +92,17 @@ flowchart TD
 	H["固定規則放 SKILL_NEW.md"]
 	I["新學到的規則放 APP_PROFILE.md"]
 	J["每輪補充內容放 SKILL_DELTA.md"]
-	K["第二句追問<br/>把 SKILL_DELTA.md 裡已經穩定的規則<br/>正式合併回 SKILL_NEW.md"]
-	L["AI 合併穩定規則回主 skill<br/>更新 SKILL_NEW.md"]
-	M["第三句追問<br/>把 TEST_CASES_KLINE_180.md<br/>整理成 Excel 最終交付格式"]
-	N["AI 產出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>欄位: 模組、標題、Precondition、步驟、驗證、備註"]
+	
+	subgraph SEC_SKILL ["Skill 疊代合併階段"]
+		K["第二句追問<br/>把 SKILL_DELTA.md 裡已經穩定的規則<br/>正式合併回 SKILL_NEW.md"]
+		L["AI 合併穩定規則回主 skill<br/>更新 SKILL_NEW.md"]
+	end
+
+	subgraph SEC_EXCEL ["Excel 格式轉換階段"]
+		M["第三句追問<br/>把 TEST_CASES_KLINE_180.md<br/>整理成 Excel 最終交付格式"]
+		N["AI 產出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>欄位: 模組、標題、Precondition、步驟、驗證、備註"]
+	end
+
 	O["存回團隊共用位置<br/>如 Git 共用路徑或團隊雲端資料夾"]
 	P["下一輪需求直接沿用最新版本"]
 
@@ -118,6 +125,9 @@ flowchart TD
 	L --> O
 	N --> O
 	O --> P
+
+	style SEC_SKILL fill:#e6f3ff,stroke:#b3d8ff,stroke-width:1px,color:#1a365d
+	style SEC_EXCEL fill:#e6ffe6,stroke:#b3ffb3,stroke-width:1px,color:#1b4d1b
 ```
 
 ## 落地建議
