@@ -82,7 +82,7 @@ flowchart TD
 	K[第二句追问<br/>把 SKILL_DELTA.md 里已经稳定的规则<br/>正式合并回 SKILL_NEW.md]
 	L[AI 合并稳定规则回主 skill<br/>更新 SKILL_NEW.md]
 	M[第三句追问<br/>把 TEST_CASES_KLINE_180.md<br/>整理成 Excel 最终交付格式]
-	N[AI 产出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>栏位: 模块 | 標題 | Precondition | 步驟 | 驗證 | 備註]
+	N[AI 产出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>栏位: 模块、標題、Precondition、步驟、驗證、備註]
 	O[存回团队共用位置<br/>如 Git 共用路径或团队云端资料夹]
 	P[下一轮需求直接沿用最新版本]
 
