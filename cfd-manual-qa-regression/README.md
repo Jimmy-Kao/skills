@@ -6,7 +6,7 @@ flowchart TD
     D["一起提供 UI"]
     E["只提供需求文件"]
 
-    F["AI 讀取既有知識庫<br/>1. 主 SKILL_NEW<br/>2. APP_PROFILE<br/>3. 最新 SKILL_DELTA<br/>4. SKILL_DELTA_HISTORY"]
+    F["AI 讀取既有知識庫<br/>1. 主 SKILL_NEW<br/>2. APP_PROFILE<br/>3. 最新 APP_PROFILE<br/>4. SKILL_DELTA_HISTORY"]
     G["AI 產出本輪測試用例<br/>Google Sheets-ready"]
     H["AI 產出本輪迭代摘要<br/>更新 SKILL_DELTA.md"]
 
@@ -19,7 +19,7 @@ flowchart TD
     N["覆寫前先封存舊版 SKILL_DELTA<br/>追加到 SKILL_DELTA_HISTORY.md"]
     O["更新完成後輸出結果"]
     P["存回團隊共用位置"]
-    Q["下一輪需求直接沿用<br/>最新主 skill + app profile + delta history"]
+    Q["下一輪需求直接沿用<br/>最新主 SKILL_NEW + APP_PROFILE + APP_PROFILE"]
 
     subgraph KNOWLEDGE["知識分工"]
         KS["主 SKILL_NEW<br/>負責可重用測試規則"]
