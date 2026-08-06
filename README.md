@@ -65,6 +65,13 @@
 | 4 | 產出可跌代的 Skill |
 | 5 | 存回團隊共用位置，供下一輪使用 |
 
+| 檔名 | 說明 |
+|---|---|
+| SKILL_NEW | 負責可重用測試規則 |
+| APP_PROFILE | 負責產品專屬且已確認的事實 |
+| SKILL_DELTA | 只保留本輪摘要 |
+| SKILL_DELTA_HISTORY | 保留歷程 |
+
 ## 簡化流程圖
 ```mermaid
 flowchart TD
