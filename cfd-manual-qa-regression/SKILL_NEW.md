@@ -7,7 +7,7 @@ disable-model-invocation: false
 ---
 
 # CFD Manual QA Regression
-# CFD 手动 QA 回归测试
+# CFD 手動 QA 回歸測試
 
 ## What This Skill Produces
 ## 该 Skill 产出
@@ -83,14 +83,16 @@ disable-model-invocation: false
 - Do not use a personal user-level skill path for team sharing unless the intent is a private experiment.
 - Keep a companion knowledge file next to the skill, for example `APP_PROFILE.md`, and update it after each iteration.
 - Treat the companion file as the living memory for the app. The skill should read it before generating test cases whenever it exists.
+- Keep `SKILL_DELTA.md` as the latest-round summary only, and preserve older rounds in an append-only `SKILL_DELTA_HISTORY.md` file before overwriting the latest delta.
 
 ## Iteration Contract
 ## 迭代契約
 When the user supplies a requirement document, do all of the following:
 1. Distill the app behavior, user roles, screens, workflows, validations, and boundary rules from the document.
 2. Update the current app profile with new facts, new terminology, and newly confirmed risk areas.
-3. Produce test cases that reflect both the requirement document and any provided UI.
-4. Emit a Skill Delta section that can be merged into the next revision of this skill.
+3. Record all newly added app facts and confirmed behaviors in dated or versioned subsections instead of mixing them directly into earlier bullets.
+4. Produce test cases that reflect both the requirement document and any provided UI.
+5. Emit a Skill Delta section that can be merged into the next revision of this skill.
 
 The Skill Delta must include:
 - Newly learned app behavior
@@ -102,6 +104,19 @@ The Skill Delta must include:
 
 Promotion rule:
 - Only merge wording into this skill when it is cross-feature, reusable, and not tied to one specific screen or product variant.
+
+## Mandatory Promotion Decision
+After drafting each new `SKILL_DELTA.md`, perform a mandatory promotion pass before finalizing the output:
+1. Review every newly added delta bullet one by one.
+2. Decide whether the bullet belongs in `SKILL_NEW.md`, `APP_PROFILE.md`, both, or history only.
+3. Apply the promotion immediately in the same run instead of leaving it as a future manual task.
+
+Use this routing rule:
+- Promote to `SKILL_NEW.md` when the wording is cross-feature, reusable, and improves future test design behavior.
+- Promote to `APP_PROFILE.md` when the content is an app-specific confirmed fact, workflow, validation, display rule, default state, calculation rule, or terminology.
+- Promote to both when one delta item contains both a reusable testing rule and a product-specific confirmed behavior.
+- Keep in `SKILL_DELTA.md` and `SKILL_DELTA_HISTORY.md` only when the item is round-specific context, an unresolved question, a temporary assumption, or a one-off coverage note.
+- A delta item is not considered retained unless it has been explicitly routed to one of the destinations above.
 
 ## App Profile Inputs
 ## App 資訊輸入
@@ -120,8 +135,9 @@ Use this order every time:
 1. Read the new requirement source.
 2. Read the current app profile when available.
 3. Merge new facts into the app profile.
-4. Generate or update the test cases.
-5. Write back the Skill Delta for the next run.
+4. Archive the existing `SKILL_DELTA.md` into `SKILL_DELTA_HISTORY.md` when prior round content exists.
+5. Generate or update the test cases.
+6. Write back the Skill Delta for the next run.
 
 ## Skill Delta Content
 The Skill Delta must capture:
@@ -133,11 +149,15 @@ The Skill Delta must capture:
 - Notes for the next iteration so the skill becomes more accurate
 
 When a round repeatedly reveals reusable test-design rules, promote them here and keep app-specific facts in `APP_PROFILE.md`.
+Do not rely on old deltas as the only memory source: reusable cross-feature rules must be promoted into this skill, and app-specific confirmed facts must be promoted into `APP_PROFILE.md`.
+`SKILL_DELTA.md` should stay concise as the latest-round working summary, while `SKILL_DELTA_HISTORY.md` keeps the long-term append-only archive.
+If a new delta is generated and no promotion decision is recorded for the new bullets, treat the iteration as incomplete.
 
 ## Language Rule
-- All generated test cases must be written in Chinese.
-- Use Chinese for Module, Subjective, Steps, Verify, Result, and Priority descriptions when producing test cases.
-- If the user does not specify a language, default to Chinese.
+- All generated test cases and user-facing outputs must be written in Traditional Chinese (Taiwan).
+- Use Traditional Chinese (Taiwan) for Module, Subjective, Steps, Verify, Result, and Priority descriptions when producing test cases.
+- If source materials contain Simplified Chinese, normalize the output wording into Traditional Chinese (Taiwan).
+- If the user does not specify a language, default to Traditional Chinese (Taiwan).
 
 **中文翻译：**
 - **必需：**
@@ -255,9 +275,11 @@ Always map scope to these risk buckets before case design:
    - Permission denial and role restrictions
    - Upstream dependency timeout/failure behavior
    - **For any drag-edit workflow with a confirmation dialog, generate validation for four checkpoints: before drag, after drag, after confirm, and after failure/cancel**
+   - **For any CTA gated by ordered eligibility checks, generate one independent case per failed branch and explicitly verify button state, prompt copy, and navigation target**
 
 - Non-functional coverage:
    - If the requirement explicitly includes telemetry, tracking, or analytics events, generate dedicated validation cases for those events.
+   - **For any sorted or ranked list with non-real-time refresh, generate dedicated cases for update cadence, cache continuity, pagination, pull-to-refresh, and sticky navigation behavior**
 
 ## Test Case Output Format Standard
 ## 测试用例输出格式标准
