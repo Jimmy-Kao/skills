@@ -1,136 +1,97 @@
-# 如何使用跌代的 Skill
-
-## abstract
-此篇文章引導測試組員如何使用現有的 Skill 產出測試用例，並同時產出可跌代的 Skill。流程保持簡單：組員只要提供需求文檔，若有 UI 也一併提供，AI 就會直接產出可執行的 Google Sheet 測試用例，以及可供下一輪使用的 Skill 更新內容。
-
-## method
-1. 在 IDE 或 VS Code 中安裝 GitHub Copilot。
-2. 將可跌代的 Skill 放入團隊共用資料夾，例如專案中的 `.github/skills/` 路徑。
-3. 當有需求時，直接把需求文檔餵給 AI。
-4. 若有 UI 設計圖、截圖或畫面說明，也一併提供給 AI；若沒有 UI，可以不提供。
-5. 讓 AI 直接產出兩個結果：
-   - 可執行的 Google Sheet 測試用例
-   - 可跌代的 Skill 更新內容
-6. 將產出的 Skill 更新回存到團隊共用位置，供下一次需求使用。
-7. 下一輪只需要再提供新的需求文檔與 UI，重複相同流程即可。
-
-## 操作原則
-- 流程不需要額外中間審核步驟。
-- 只有需求文檔是必填，UI 是選填。
-- 產出的測試用例必須可以直接貼到 Google Sheet 使用。
-- 產出的 Skill 必須能保留本次學到的 app 規則，讓下一輪更準確。
-
-## 語句範例
-
-### 1. 基本指令
-- 讀需求文檔、產出測試用例並同時更新跌代的 Skill。
-- 請根據我提供的需求文檔與 UI，直接產出可執行的 Google Sheet 測試用例，並產出下一輪可跌代的 Skill。
-- 這一輪只需要需求文檔，如果有 UI 我會一起提供，請直接開始產出測試用例與 Skill 更新。
-
-### 2. 給 AI 的完整說法
-- 請先閱讀這份需求文檔，若有 UI 也一起參考，然後直接產出測試用例與可跌代的 Skill，不需要額外流程。
-- 請用需求文檔加上 UI 直接生成 Google Sheet 測試用例，並把這次學到的 app 規則整理成下一輪可使用的 Skill。
-- 請把需求文檔中確認的功能、例外與邊界條件寫進測試用例，並同步更新 Skill，方便下次迭代。
-
-### 3. 給測試組員的簡短口令
-- 讀需求，給 UI，出用例，出 Skill。
-- 有 UI 就附 UI，沒有就只給需求。
-- 產出用例後，把 Skill 一起存回去。
-
-### 4. 迭代時可用的指令
-- 請根據上一輪的 Skill 與這次的新需求，更新測試用例與 Skill。
-- 請把這次需求學到的新規則加回 Skill，並產出下一輪可直接使用的測試用例。
-- 請保留已確認的 app 行為，補上這次新學到的內容，形成下一版 Skill。
-
-## 建議流程圖
-1. 組員提供需求文檔。
-2. 若有 UI，就一起提供 UI；若沒有 UI，就只提供需求文檔。
-3. AI 直接產出測試用例。
-4. AI 同時產出可跌代的 Skill。
-5. 將 Skill 存回團隊共用位置。
-6. 下一輪直接沿用新的 Skill。
-
-## 流程說明
-- UI 是選填，不提供也可以直接產出測試用例與 Skill。
-- 組員只需要把需求文檔餵給 AI；如果有 UI，就一起附上。
-- AI 的輸出只有兩個重點：測試用例和可跌代的 Skill。
-
-## 簡化版
-
-| 步驟 | 說明 |
-|---|---|
-| 1 | 提供需求文檔 |
-| 2 | UI 有就一起提供，沒有就略過 |
-| 3 | 產出測試用例 |
-| 4 | 產出可跌代的 Skill |
-| 5 | 存回團隊共用位置，供下一輪使用 |
-
-## 簡化流程圖
 ```mermaid
 flowchart TD
-    A[組員提供需求文檔] --> B{是否有 UI?}
-    B -- 有 --> C[一起提供 UI]
-    B -- 沒有 --> D[只用需求文檔]
-    C --> E[AI 直接產出測試用例]
-    D --> E[AI 直接產出測試用例]
-    E --> F[AI 同時產出可跌代的 Skill]
-    F --> G[將 Skill 存回團隊共用位置]
-    G --> H[下一輪需求直接沿用]
+    A["指令輸入<br/>根據這份需求產出測試用例<br/>若有 UI 也一併參考<br/>並同時產出可迭代的 skill"]
+    B["提供需求文件"]
+    C{"是否有 UI 設計稿<br/>或畫面截圖？"}
+    D["一起提供 UI"]
+    E["只提供需求文件"]
+
+    F["AI 讀取既有知識庫<br/>1. 主 skill<br/>2. app profile<br/>3. 最新 delta<br/>4. delta history"]
+    G["AI 產出本輪測試用例<br/>Google Sheets-ready<br/>繁體台灣中文"]
+    H["AI 產出本輪迭代摘要<br/>更新 SKILL_DELTA.md"]
+
+    I{"本輪新增內容<br/>是否需要升級保存？"}
+    J["升級到主 skill<br/>可重用測試規則"]
+    K["升級到 app profile<br/>產品專屬且已確認事實"]
+    L["同時升級兩邊<br/>一條內容同時含規則與產品事實"]
+    M["只留在本輪 delta<br/>未確認問題 / 假設 / 本輪備註"]
+
+    N["覆寫前先封存舊版 delta<br/>追加到 SKILL_DELTA_HISTORY.md"]
+    O["更新完成後輸出結果"]
+    P["存回團隊共用位置"]
+    Q["下一輪需求直接沿用<br/>最新主 skill + app profile + delta history"]
+
+    subgraph KNOWLEDGE["知識分工"]
+        KS["主 skill<br/>負責可重用測試規則"]
+        KP["app profile<br/>負責產品專屬且已確認的事實"]
+        KD["delta<br/>只保留本輪摘要"]
+        KH["delta history<br/>保留歷程"]
+    end
+
+    subgraph TODO_REVIEW["每輪必做 Todo / Review Check"]
+        T1["Todo 1<br/>逐條檢查新 delta 內容"]
+        T2["Todo 2<br/>判斷每條要進 skill、profile、兩者或 history only"]
+        T3["Todo 3<br/>不能只寫 delta 就結束"]
+        T4["Todo 4<br/>若未做 promotion decision<br/>該輪視為未完成"]
+    end
+
+    subgraph NOTE_TEAM["組員閱讀備註"]
+        R1["備註 A<br/>不要把 SKILL_DELTA.md 當成唯一知識來源"]
+        R2["備註 B<br/>跨功能、可複用的規則<br/>一定要回寫主 skill"]
+        R3["備註 C<br/>產品專屬且已確認的規則<br/>一定要回寫 app profile"]
+        R4["備註 D<br/>未確認問題與暫時假設<br/>只留在 delta / delta history"]
+    end
+
+    subgraph OPTIONAL_EXCEL["可選交付階段"]
+        X1["若組員追問<br/>整理成 Excel 最終交付格式"]
+        X2["AI 產出 Excel 版測試案例<br/>欄位: 模組 / 標題 / Precondition / 步驟 / 驗證 / 備註"]
+    end
+
+    A --> B
+    B --> C
+    C -- 有 --> D
+    C -- 沒有 --> E
+    D --> F
+    E --> F
+    F --> G
+    G --> H
+    H --> N
+    N --> I
+
+    I --> J
+    I --> K
+    I --> L
+    I --> M
+
+    J --> O
+    K --> O
+    L --> O
+    M --> O
+
+    O --> P
+    P --> Q
+
+    F -. 參考既有規則 .-> KS
+    F -. 參考既有產品知識 .-> KP
+    F -. 參考本輪摘要 .-> KD
+    F -. 參考歷程脈絡 .-> KH
+
+    H -. 本輪新增內容檢查 .-> T1
+    T1 --> T2
+    T2 --> T3
+    T3 --> T4
+
+    I -. 判斷依據 .-> R1
+    I -. 判斷依據 .-> R2
+    I -. 判斷依據 .-> R3
+    I -. 判斷依據 .-> R4
+
+    G --> X1
+    X1 --> X2
+    X2 --> P
+
+    style KNOWLEDGE fill:#eef6ff,stroke:#7aa6d8,stroke-width:1px,color:#12344d
+    style TODO_REVIEW fill:#fff7e6,stroke:#e0b84f,stroke-width:1px,color:#5c4400
+    style NOTE_TEAM fill:#f3f0ff,stroke:#9a86d1,stroke-width:1px,color:#33235c
+    style OPTIONAL_EXCEL fill:#eafbea,stroke:#7bc47f,stroke-width:1px,color:#173d1a
 ```
-
-## 細節流程圖
-
-```mermaid
-flowchart TD
-	A["指令<br/>根據這份需求產出測試用例<br/>若有 UI 也一併參考<br/>並同時產出可跌代的 skill"]
-	B["提供需求文件"]
-	C{"是否有 UI?"}
-	D["一起提供 UI"]
-	E["只提供需求文件"]
-	F["AI 產出測試用例<br/>TEST_CASES_KLINE_180.md<br/>Google Sheets-ready 中文格式"]
-	G["AI 產出可跌代的 skill 更新"]
-	H["固定規則放 SKILL_NEW.md"]
-	I["新學到的規則放 APP_PROFILE.md"]
-	J["每輪補充內容放 SKILL_DELTA.md"]
-	
-	subgraph SEC_SKILL ["Skill 疊代合併階段"]
-		K["第二句追問<br/>把 SKILL_DELTA.md 裡已經穩定的規則<br/>正式合併回 SKILL_NEW.md"]
-		L["AI 合併穩定規則回主 skill<br/>更新 SKILL_NEW.md"]
-	end
-
-	subgraph SEC_EXCEL ["Excel 格式轉換階段"]
-		M["第三句追問<br/>把 TEST_CASES_KLINE_180.md<br/>整理成 Excel 最終交付格式"]
-		N["AI 產出 Excel 交付版<br/>TEST_CASES_KLINE_180_EXCEL.md<br/>欄位: 模組、標題、Precondition、步驟、驗證、備註"]
-	end
-
-	O["存回團隊共用位置<br/>如 Git 共用路徑或團隊雲端資料夾"]
-	P["下一輪需求直接沿用最新版本"]
-
-	A --> B
-	B --> C
-	C -- 有 --> D
-	C -- 沒有 --> E
-	D --> F
-	E --> F
-	F --> G
-	G --> H
-	G --> I
-	G --> J
-	H --> K
-	I --> O
-	J --> K
-	K --> L
-	F --> M
-	M --> N
-	L --> O
-	N --> O
-	O --> P
-
-	style SEC_SKILL fill:#e6f3ff,stroke:#b3d8ff,stroke-width:1px,color:#1a365d
-	style SEC_EXCEL fill:#e6ffe6,stroke:#b3ffb3,stroke-width:1px,color:#1b4d1b
-```
-
-## 落地建議
-- 將 Skill 放在團隊共用的版本控管位置，方便所有測試組員一起使用。
-- 每次迭代後都保留一份最新 Skill，避免不同成員使用不同版本。
-- 測試用例與 Skill 一起更新，讓知識累積在同一條流程內。
